@@ -94,27 +94,32 @@ body::-webkit-scrollbar {
 /* Container Logo di Tengah Atas */
 .hero-logo-modifier {
     position: absolute;
-    top: 30px;
+    top: 25px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
-    
-    /* Z-Index tinggi agar selalu di atas partikel */
-    z-index: 10; 
+    z-index: 10;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    width: 100%; /* Pastikan container tidak melebihi layar */
+    max-width: 90%;
+    display: flex;
+    justify-content: center;
 }
 
-/* Styling Logo Horizontal (Gambar + Teks) */
 .horizontal-logo {
     display: flex;
     align-items: center;
     gap: 14px;
+    background: rgba(255, 255, 255, 0.1); /* Sedikit background transparan agar teks terbaca */
+    padding: 8px 15px;
+    border-radius: 12px;
+    backdrop-filter: blur(4px); /* Efek blur di belakang logo */
 }
 
 .horizontal-logo img {
     width: 55px;
     height: auto;
-    margin-bottom: 5px;
+    margin-bottom: 0; /* Reset margin */
 }
 
 .logo-text-group {
@@ -129,13 +134,29 @@ body::-webkit-scrollbar {
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Tambah bayangan agar kontras */
 }
 
 .logo-subtext {
     color: var(--text-muted);
     font-size: 0.75em;
     letter-spacing: 1px;
-    opacity: 0.85;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* RESPONSIVE LOGO UNTUK HP */
+@media (max-width: 576px) {
+    .horizontal-logo img {
+        width: 40px; /* Perkecil logo */
+        gap: 10px;
+    }
+    .logo-text {
+        font-size: 1.2em; /* Perkecil teks utama */
+    }
+    .logo-subtext {
+        font-size: 0.6em; /* Perkecil subteks */
+    }
 }
 
 /* ======================================================================== */
@@ -256,31 +277,126 @@ body::-webkit-scrollbar {
 }
 
 /* ======================================================================== */
-/* 7. RESPONSIVE MEDIA QUERIES */
+/* 7. RESPONSIVE HERO (UPDATED: Gambar Lebih Jelas/Tebal) */
 /* ======================================================================== */
+
+/* Tablet & Laptop Kecil (Mode Mobile) */
 @media (max-width: 992px) {
     .hero-content-layout {
-        grid-template-columns: 1fr;
+        display: block; 
         text-align: center;
-        padding: 120px 20px 40px;
+        padding-top: 180px; 
+        height: 100vh;
+        position: relative;
     }
 
+    .hero-text-area {
+        position: relative;
+        z-index: 10; 
+        margin-bottom: 0;
+        padding: 0 30px;
+    }
+
+    .hero-text-area h1 {
+        font-size: 2.8em;
+        /* Tambah shadow hitam di belakang teks agar terbaca di atas gambar tebal */
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.8); 
+    }
+    
+    .hero-text-area p {
+        font-size: 1em;
+        margin-bottom: 30px;
+        color: #fff; /* Warna putih penuh */
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.9); /* Shadow dipertebal */
+        font-weight: 600;
+    }
+
+    /* POSISI GAMBAR DI BELAKANG */
     .hero-image-area {
-        display: none; /* Sembunyikan gambar besar di layar tablet/kecil */
+        display: block;
+        position: absolute; 
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 75%; /* Naikkan sedikit tingginya */
+        z-index: 1; 
+        
+        /* --- PERUBAHAN DI SINI --- */
+        opacity: 0.85; /* DINAICKAN: Dari 0.6 jadi 0.85 (Lebih Tebal/Jelas) */
+        
+        /* Masking tetap ada agar bagian atas gambar memudar halus menyatu dengan biru */
+        mask-image: linear-gradient(to top, black 70%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%);
+        
+        pointer-events: none; 
     }
-}
 
-@media (max-width: 768px) {
+    .hero-image {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%); 
+        width: auto; 
+        height: 100%; 
+        max-width: 160%; /* Biarkan melebar agar tidak gepeng */
+        object-fit: contain;
+        object-position: bottom center;
+    }
+    
     .hero-nav-buttons {
         justify-content: center;
+        gap: 12px;
+        position: relative;
+        z-index: 15; 
     }
-
+    
     .hero-nav-buttons li a {
-        width: 100%;
-        text-align: center;
+        padding: 12px 25px;
+        font-size: 0.9em;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        background-color: rgba(255, 255, 255, 0.95); /* Tombol sedikit lebih solid */
     }
 }
 
+/* HP Kecil (Portrait) */
+@media (max-width: 576px) {
+    .hero-content-layout {
+        padding-top: 160px; 
+    }
+
+    .horizontal-logo img {
+        width: 35px;
+    }
+    .logo-text {
+        font-size: 1.1em;
+    }
+    .logo-subtext {
+        font-size: 0.55em;
+    }
+
+    .hero-text-area h1 {
+        font-size: 2.2em;
+    }
+    
+    /* Gambar di HP Kecil */
+    .hero-image-area {
+        height: 65%;
+        opacity: 0.75; /* DINAICKAN: Dari 0.4 jadi 0.75 (Jauh lebih jelas) */
+    }
+}
+
+/* HP Landscape */
+@media (max-height: 600px) {
+    .hero-content-layout {
+        padding-top: 100px;
+        height: auto;
+        min-height: 100vh;
+        padding-bottom: 50px;
+    }
+    .hero-image-area {
+        display: none; 
+    }
+}
 /* ======================================================================== */
 /* 8. ANGGOTA CSS (POLAROID / YEARBOOK THEME) */
 /* ======================================================================== */
@@ -506,6 +622,112 @@ body::-webkit-scrollbar {
 
     .polaroid-board {
         padding: 40px 25px;
+    }
+}
+
+/* ======================================================================== */
+/* 9. UPDATE RESPONSIVE (Code Tambahan untuk Mobile/HP) */
+/* ======================================================================== */
+
+/* --- TABLET & HP (Layar di bawah 992px) --- */
+@media (max-width: 992px) {
+    /* Perbaiki Top Bar agar tidak bertumpuk jelek */
+    .top-bar .container {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+
+    /* Kurangi padding Hero Section agar tidak terlalu kosong atasnya */
+    .hero-content-layout {
+        padding-top: 100px; /* Dikurangi dari 150px */
+        gap: 20px;
+    }
+
+    .hero-text-area h1 {
+        font-size: 2.5em; /* Kecilkan font judul utama */
+    }
+    
+    /* Agar logo tidak nabrak konten di layar pendek */
+    .hero-logo-modifier {
+        width: 100%;
+        top: 20px;
+    }
+}
+
+/* --- HP STANDAR (Layar di bawah 768px) --- */
+@media (max-width: 768px) {
+    /* Papan Polaroid: Kurangi padding yang terlalu lebar */
+    .polaroid-board {
+        padding: 40px 20px; /* Kiri kanan jadi tipis */
+        width: 95%; /* Agar tidak nempel pinggir layar */
+        margin: 0 auto 50px auto;
+    }
+
+    /* Struktur Organisasi: Agar susunan Ketua/Wakil dkk turun ke bawah */
+    .struktur-row {
+        flex-wrap: wrap; /* Izinkan turun baris */
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    /* Reset ukuran kartu struktur agar muat di HP */
+    .polaroid-item.struktur,
+    .struktur-row.struktur-empat .polaroid-item {
+        width: 45%; /* Pakai persen, bukan pixel mati */
+        max-width: 160px; /* Batas maksimal */
+    }
+
+    /* Grid Anggota: Pastikan 2 kolom rapi */
+    .polaroid-grid {
+        gap: 15px;
+    }
+    
+    .polaroid-grid .polaroid-item {
+        width: 46%; /* Hampir setengah layar */
+        padding: 8px 8px 15px; /* Kurangi padding kartu */
+    }
+
+    /* Tombol Navigasi: Buat jadi tombol penuh di HP agar mudah dipencet */
+    .hero-nav-buttons, 
+    .hero-nav-buttons-anggota {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .hero-nav-buttons li, 
+    .hero-nav-buttons-anggota li {
+        width: 100%;
+    }
+
+    .hero-nav-buttons li a, 
+    .hero-nav-buttons-anggota li a {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* --- HP KECIL (Layar di bawah 480px) --- */
+@media (max-width: 480px) {
+    .hero-text-area h1 {
+        font-size: 2em; /* Lebih kecil lagi */
+    }
+
+    .logo-text {
+        font-size: 1.2em;
+    }
+
+    /* Galeri: Foto jadi 1 kolom penuh */
+    .gallery-item {
+        width: 100%;
+        max-width: none;
+    }
+
+    /* Struktur & Anggota: Nama font diperkecil sedikit */
+    .polaroid-name {
+        font-size: 0.9em;
     }
 }
 
