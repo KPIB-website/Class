@@ -1,0 +1,580 @@
+/* ======================================================================== */
+/* 1. ROOT, RESET & GLOBAL STYLES */
+/* ======================================================================== */
+:root {
+    --main-color: #0b3c8d;
+    --dark-color: #082c63;
+    --text-light: #ffffff;
+    --text-muted: #dbe3f3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f4f6fb;
+    /* Font global opsional, bisa diaktifkan jika perlu */
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+}
+
+/* Sembunyikan Scrollbar (Chrome, Edge, Safari) */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* ======================================================================== */
+/* 2. TOP BAR (Identitas Kelas di Paling Atas) */
+/* ======================================================================== */
+.top-bar {
+    background-color: white;
+    color: #0e5d8a;
+    font-size: 0.8em;
+    padding: 6px 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.top-bar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 32px;
+}
+
+/* ============================= */
+/* 3. HERO SECTION & PARTICLES */
+/* ============================= */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    
+    /* Background Gradient + Gambar Rak Buku */
+    background:
+        linear-gradient(
+            135deg,
+            rgba(11, 60, 141, 0.9) 0%,
+            rgba(14, 92, 139, 0.9) 45%,
+            rgba(10, 122, 90, 0.9) 100%
+        ),
+        url('../images/rak-buku.jpg');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* PENTING: Agar partikel tidak membuat scrollbar muncul */
+    overflow: hidden; 
+}
+
+/* WADAH PARTIKEL */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Layer 1: Di atas background */
+}
+
+/* KONTEN (Agar bisa diklik) */
+.hero-content-layout,
+.hero-logo-modifier {
+    position: relative;
+    z-index: 5; /* Layer 5: Di atas partikel */
+}
+
+/* ======================================================================== */
+/* 4. LOGO & HEADER CONTENT (Layer di Atas Partikel) */
+/* ======================================================================== */
+
+/* Container Logo di Tengah Atas */
+.hero-logo-modifier {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    
+    /* Z-Index tinggi agar selalu di atas partikel */
+    z-index: 10; 
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Styling Logo Horizontal (Gambar + Teks) */
+.horizontal-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.horizontal-logo img {
+    width: 55px;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.logo-text-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.logo-text {
+    color: white;
+    font-size: 1.6em;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: 1px;
+}
+
+.logo-subtext {
+    color: var(--text-muted);
+    font-size: 0.75em;
+    letter-spacing: 1px;
+    opacity: 0.85;
+}
+
+/* ======================================================================== */
+/* 5. HERO MAIN CONTENT (Teks & Gambar Besar) */
+/* ======================================================================== */
+.hero-content-layout {
+    position: relative;
+    
+    /* Z-Index harus lebih besar dari particles (1) agar tombol bisa diklik */
+    z-index: 5; 
+    
+    height: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding-top: 150px;
+
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 40px;
+}
+
+/* Area Teks Kiri */
+.hero-text-area {
+    color: white;
+}
+
+.hero-text-area h1 {
+    font-size: 3.2em;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.hero-text-area h1 span {
+    color: #ffc107; /* Warna Kuning Emas */
+}
+
+.hero-text-area p {
+    max-width: 520px;
+    font-size: 1em;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 35px;
+}
+
+/* Area Gambar Kanan */
+.hero-image-area {
+    position: relative;
+    height: 100%;
+}
+
+.hero-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    min-height: 600px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 12px rgba(0,0,0,0.4));
+}
+
+/* ======================================================================== */
+/* 6. NAVIGASI HERO & BUTTONS */
+/* ======================================================================== */
+.hero-nav-buttons {
+    list-style: none;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    padding: 0;
+}
+
+.hero-nav-buttons li a {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: white;
+    color: var(--main-color);
+    font-weight: 600;
+    font-size: 0.9em;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.25s ease;
+}
+
+.hero-nav-buttons li a:hover {
+    background-color: #f1f1f1;
+    transform: translateY(-2px);
+}
+
+.cta-button-index {
+    display: inline-block;
+    padding: 12px 35px;
+    background-color: white;
+    color: var(--main-color);
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: 0.3s ease;
+}
+
+.cta-button-index:hover {
+    background-color: #f1f1f1;
+}
+
+/* Header Social Icons (Jika digunakan) */
+.header-social {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.header-social i {
+    color: #E1306C; /* Warna Instagram */
+    font-size: 1em;
+}
+
+/* ======================================================================== */
+/* 7. RESPONSIVE MEDIA QUERIES */
+/* ======================================================================== */
+@media (max-width: 992px) {
+    .hero-content-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 120px 20px 40px;
+    }
+
+    .hero-image-area {
+        display: none; /* Sembunyikan gambar besar di layar tablet/kecil */
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-nav-buttons {
+        justify-content: center;
+    }
+
+    .hero-nav-buttons li a {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* ======================================================================== */
+/* 8. ANGGOTA CSS (POLAROID / YEARBOOK THEME) */
+/* ======================================================================== */
+
+.anggota-polaroid {
+    position: relative;
+    padding: 90px 0;
+    
+    /* Background Gradient (Sama seperti index) */
+    background:
+        linear-gradient(
+            135deg,
+            rgba(11, 60, 141, 0.9) 0%,
+            rgba(14, 92, 139, 0.9) 100%,
+            rgba(10, 122, 90, 0.9) 0%
+        ),
+        url('../images/rak-buku.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+    /* PENTING: Agar partikel tidak membuat scrollbar ganda */
+    overflow: hidden; 
+}
+
+/* Menggunakan ID partikel yang sama dengan index, tapi posisinya absolut di section ini */
+.anggota-polaroid #particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1; /* Layer paling bawah (di atas background biru) */
+}
+
+/* CLASS BARU UNTUK MENGANGKAT KONTEN */
+.relative-z {
+    position: relative;
+    z-index: 5; /* Harus lebih tinggi dari z-index particles (1) */
+}
+
+.polaroid-board {
+    max-width: 1200px;
+    margin: auto;
+    padding: 70px 60px;
+
+    background: rgba(255, 255, 255, 0.45);
+    /* background: #fff; */
+
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,0.35);
+    box-shadow: 0 18px 45px rgba(11, 60, 141, 0.18);
+    
+    /* Z-index lokal untuk memastikan board di atas partikel */
+    position: relative; 
+    z-index: 10; 
+}
+
+/* ... (Sisa CSS polaroid-grid, polaroid-item, dll tetap sama) ... */
+
+.anggota-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.anggota-title h2 {
+    font-size: 2.6em;
+    font-weight: 800;
+    color: var(--dark-color);
+}
+
+.anggota-title p {
+    color: #666;
+}
+
+/* Grid Layout */
+.polaroid-grid {
+    display: flex;           /* Ubah dari grid ke flex agar lebih fleksibel */
+    flex-wrap: wrap;         /* Izinkan item turun ke baris baru */
+    justify-content: center; /* KUNCI: Membuat seluruh konten (termasuk sisa ganjil) rata tengah */
+    gap: 32px;               
+}
+
+.polaroid-grid .polaroid-item {
+    width: 180px;           
+    flex-grow: 0;            
+    flex-shrink: 0;         
+}
+
+@media (max-width: 576px) {
+    .polaroid-grid .polaroid-item {
+        width: 45%;          /* Di HP, tampil 2 per baris */
+    }
+}
+
+/* Struktur Organisasi Layout */
+.struktur-row {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+
+/* 1. Ukuran Kartu Struktur Utama (Ketua & Wakil) */
+.polaroid-item.struktur {
+    width: 240px; /* SEBELUMNYA 180px -> SAYA GANTI JADI 240px */
+}
+
+/* 2. Ukuran Kartu Struktur Baris Kedua (Sekretaris, Bendahara, dll) */
+.struktur-row.struktur-empat .polaroid-item {
+    width: 210px; /* SEBELUMNYA 160px -> SAYA GANTI JADI 210px */
+}
+
+/* 3. (Opsional) Perbesar juga ukuran font nama agar seimbang dengan kartunya */
+.polaroid-item.struktur .polaroid-name {
+    font-size: 1.2em; /* Sedikit lebih besar */
+}
+
+/* Kartu Polaroid Individual */
+.polaroid-item {
+    background: #fff;
+    padding: 12px 12px 18px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+    transition: 0.35s;
+}
+
+.polaroid-item:hover {
+    transform: scale(1.06);
+    box-shadow: 0 18px 40px rgba(11,60,141,0.25);
+}
+
+.polaroid-item.struktur {
+    width: 180px;
+}
+
+.polaroid-photo {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #f1f3f8;
+}
+
+.polaroid-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.polaroid-name {
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'Patrick Hand', cursive; /* Font tulisan tangan */
+    color: var(--main-color);
+}
+
+.polaroid-role {
+    text-align: center;
+    font-size: 0.75em;
+    font-weight: 600;
+    color: #666;
+    letter-spacing: 1px;
+}
+
+/* Efek Selotip di atas foto */
+.tape {
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-4deg);
+    width: 58px;
+    height: 16px;
+    background: rgba(2, 8, 26, 0.18);
+    border-radius: 3px;
+}
+
+/* Navigasi Khusus Halaman Anggota */
+.hero-nav-buttons-anggota {
+    list-style: none;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-nav-buttons-anggota li a {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: white;
+    color: var(--main-color);
+    font-weight: 600;
+    font-size: 0.9em;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.25s ease;
+}
+
+.hero-nav-buttons-anggota li a:hover {
+    background-color: #f1f1f1;
+    transform: translateY(-2px);
+}
+
+/* Pengaturan Struktur 4 Orang */
+.struktur-row.struktur-empat {
+    gap: 40px;
+}
+
+.struktur-row.struktur-empat .polaroid-item {
+    width: 160px;
+}
+
+/* Responsive untuk Halaman Anggota */
+@media (max-width: 768px) {
+    .struktur-row {
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .polaroid-board {
+        padding: 40px 25px;
+    }
+}
+
+/* ========================================= */
+/* TAMBAHAN UNTUK HALAMAN GALERI */
+/* ========================================= */
+
+/* Grid Galeri: Flexbox Rata Tengah */
+.gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px; /* Jarak antar foto */
+}
+
+/* Item Kartu Galeri (Polaroid Besar) */
+.gallery-item {
+    background: #fff;
+    padding: 12px 12px 25px; /* Padding bawah lebih besar untuk caption */
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    width: 300px; /* Lebih lebar dari kartu anggota (180px) */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+/* Efek Hover: Zoom sedikit & Miring */
+.gallery-item:hover {
+    transform: scale(1.03) rotate(1deg);
+    box-shadow: 0 15px 35px rgba(11, 60, 141, 0.3);
+    z-index: 5;
+}
+
+/* Area Foto Galeri (Landscape 4:3) */
+.gallery-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3; /* Rasio standar foto kamera */
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+}
+
+.gallery-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Efek Zoom Gambar saat Hover */
+.gallery-item:hover .gallery-photo img {
+    transform: scale(1.1);
+}
+
+/* Caption Galeri */
+.gallery-caption {
+    margin-top: 15px;
+    text-align: center;
+    font-family: 'Patrick Hand', cursive; /* Font tulisan tangan */
+    font-size: 1.1em;
+    color: #444;
+    line-height: 1.4;
+}
+
+/* Responsif di HP: Foto jadi lebih kecil/penuh layar */
+@media (max-width: 576px) {
+    .gallery-item {
+        width: 100%; /* Full width di HP */
+        max-width: 350px;
+    }
+}
